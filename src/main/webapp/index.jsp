@@ -10,6 +10,6 @@
 <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
 </head>
 <body>
-<button class="btn btn-sm primary">«ö¶s</button>
+<button class="btn btn-sm btn-primary">«ö¶s</button>
 </body>
 </html>
