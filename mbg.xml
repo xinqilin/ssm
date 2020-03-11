@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-<classPathEntry location="‪mysql-connector-java-5.1.41.jar"/>
+<classPathEntry location="‪C:\Users\信錡\.m2\repository\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar" />
 
 
   <context id="mysqlTables" targetRuntime="MyBatis3">
@@ -14,9 +14,11 @@
         password="mysql">
     </jdbcConnection>
 
+   <!-- 
     <javaTypeResolver >
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
+    -->
 
     <javaModelGenerator targetPackage="com.ssm.bean" targetProject=".\src\main\java">
       <property name="enableSubPackages" value="true" />
