@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/applicationContext.xml</config>
 		<config>src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/mbg.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
