@@ -1,5 +1,7 @@
 package com.ssm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +28,13 @@ public class EmpController {
 		System.out.println(e.getId()+","+e.getLastName()+",");
 		System.out.println(e.getDepartment());
 		return empService.getOne(id);
+	}
+	
+	@GetMapping("/getall")
+	public List<Employee> getAll() {
+		List<Employee> list=empService.getAll();
+		list.get(0).getLastName();
+		return list;
 	}
 
 }
