@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace='com.ssm.service.EmpService'>
+ 
+  <select id='getOne' parameterType='Integer' resultType='com.ssm.bean.Employee'>
+     SELECT *
+     FROM employee
+     WHERE ID = #{id}
+  </select>
+  <!-- Instead of referencing Fully Qualified Class Names we can register Aliases in mybatis-config.xml and use Alias names. -->
+   <resultMap type='Employee' id='emp'>
+    <id property='i' column='id'/>
+    <result property='id' column='id'/>
+    <result property='name' column='lastName'/>
+    <result property='email' column='email'/>
+    <result property='sex' column='gender'/>
+    <result property='did' column='d_id'/>   
+   </resultMap>
+ 
+  <select id='getAll' resultMap='UserResult'>
+   SELECT * FROM employee
+  </select>
+ 
+  <insert id='addEmp' parameterType='Employee' useGeneratedKeys='true' keyProperty='id'>
+   INSERT INTO employee VALUES(#{name},#{email},#{gender},#{d_id})
+  </insert>
+ 
+  <update id='updateEmp' parameterType='Employee'>
+    UPDATE employee 
+    SET
+    lastName=#{name}
+    email=#{email}
+    gender=#{gender}
+    d_id=#{d_id}
+    WHERE id = #{id}
+  </update>
+ 
+  <delete id='deleteEmp' parameterType='Integer'>
+    DELETE FROM employee WHERE id = #{id}
+  </delete>
+ 
+</mapper>
