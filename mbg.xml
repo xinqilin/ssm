@@ -14,11 +14,11 @@
         password="mysql">
     </jdbcConnection>
 
-   <!-- 
+
     <javaTypeResolver >
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
-    -->
+
 
     <javaModelGenerator targetPackage="com.ssm.bean" targetProject=".\src\main\java">
       <property name="enableSubPackages" value="true" />
