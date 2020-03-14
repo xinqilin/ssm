@@ -18,12 +18,13 @@ public class EmpController {
 	@Autowired
 	EmpService empService;
 	
-	@Autowired
-	Employee employee;
+
 	
-	@GetMapping("/emp#{id}")
+	@GetMapping("/emp{id}")
 	public Employee getOneEmp(@PathVariable("id") Integer id) {
-		System.out.println(empService.getOne(id));
+		Employee e=empService.getOne(id);
+		System.out.println(e.getId()+","+e.getLastName()+",");
+		System.out.println(e.getDepartment());
 		return empService.getOne(id);
 	}
 

@@ -32,7 +32,10 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+ 		<property name="basePackage" value="com.ssm" />
+ 		<!-- 
  		<property name="basePackage" value="org.mybatis.spring.sample.mapper" />
+ 		 -->
 	</bean>
 	
 	<bean id="transactionManager" 

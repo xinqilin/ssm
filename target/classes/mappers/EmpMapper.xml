@@ -3,22 +3,22 @@
  
 <mapper namespace='com.ssm.service.EmpService'>
  
-  <select id='getOne' parameterType='Integer' resultType='com.ssm.bean.Employee'>
+  <select id='getOne' parameterType='Integer' resultType='Employee'>
      SELECT *
-     FROM employee
-     WHERE ID = #{id}
+     FROM employee e
+     left join department d on e.d_id=d.id 
+     WHERE e.id = #{id}
   </select>
-  <!-- Instead of referencing Fully Qualified Class Names we can register Aliases in mybatis-config.xml and use Alias names. -->
-   <resultMap type='Employee' id='emp'>
-    <id property='i' column='id'/>
+ 
+   <resultMap type='Employee' id='empMap'>
     <result property='id' column='id'/>
     <result property='name' column='lastName'/>
     <result property='email' column='email'/>
     <result property='sex' column='gender'/>
     <result property='did' column='d_id'/>   
    </resultMap>
- 
-  <select id='getAll' resultMap='UserResult'>
+
+  <select id='getAll' resultMap='empMap'>
    SELECT * FROM employee
   </select>
  
