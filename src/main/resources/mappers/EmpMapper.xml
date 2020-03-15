@@ -10,12 +10,25 @@
      WHERE e.id = #{id}
   </select>
  
+ 
+ 	<resultMap type="Department" id="dept">
+ 		<result property="id" column="id"/>
+ 		<result  property='departmentName' column='departmentName'/>
+ 	</resultMap>
+ 
    <resultMap type='Employee' id='empMap'>
-    <result property='id' column='id'/>
-    <result property='lastName' column='lastName'/>
-    <result property='email' column='email'/>
-    <result property='gender' column='gender'/>
-    <result property='d_id' column='d_id'/>   
+	    <result property='id' column='id'/>
+	    <result property='lastName' column='lastName'/>
+	    <result property='email' column='email'/>
+	    <result property='gender' column='gender'/>
+	    <result property='did' column='d_id'/> 
+	   <!-- 
+	    <result property="department" column="com.ssm.bean.Department"/> 
+	    --> 
+	    <association property="department" javaType="com.ssm.bean.Department">
+	    <result  property='id' column='id'/>
+	    <result  property='departmentName' column='departmentName'/>
+	    </association>
    </resultMap>
 
   <select id='getAll' resultMap='empMap'>

@@ -7,7 +7,7 @@ public class Employee {
 	private String lastName;
 	private String email;
 	private Integer gender;
-	private Integer d_id;
+	private Integer did;
 	private Department department;
 	public Integer getId() {
 		return id;
@@ -33,11 +33,11 @@ public class Employee {
 	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
-	public Integer getD_id() {
-		return d_id;
+	public Integer getDid() {
+		return did;
 	}
-	public void setD_id(Integer d_id) {
-		this.d_id = d_id;
+	public void setD_id(Integer did) {
+		this.did = did;
 	}
 	public Department getDepartment() {
 		return department;
@@ -48,7 +48,7 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender + ", d_id="
-				+ d_id + ", department=" + department + "]";
+				+ did + ", department=" + department + "]";
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.ssm.bean.Employee;
 
+
 //spring 內建
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration()
@@ -19,7 +20,7 @@ public class DBTest {
 	@Test
 	public void testCRUD() {
 		ApplicationContext ioc=new ClassPathXmlApplicationContext("applicationContext.xml");
-		
+//		Emp bean=ioc.getBean();
 	}
 	
 	
