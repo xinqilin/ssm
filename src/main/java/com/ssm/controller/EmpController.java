@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ssm.bean.Employee;
 import com.ssm.service.EmpService;
 
@@ -20,16 +24,21 @@ public class EmpController {
 	@Autowired
 	EmpService empService;
 
-	@GetMapping("/emp{id}")
-	public Employee getOneEmp(@PathVariable("id") Integer id) {
-		Employee e=empService.getOne(id);
-		return empService.getOne(id);
-	}
+//	@GetMapping("/emp{id}")
+//	public Employee getOneEmp(@PathVariable("id") Integer id) {
+//		Employee e=empService.getOne(id);
+//		return empService.getOne(id);
+//	}
 	
 	@GetMapping("/getall")
-	public List<Employee> getAll() {
+	public String getAll(@RequestParam(value="pn",defaultValue="1") Integer pn,Model model) {
+		
+		PageHelper.startPage(pn, 5);
 		List<Employee> list=empService.getAll();
-		return list;
+		
+		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
+		model.addAttribute("page",pageInfo);
+		return "list";
 	}
 
 

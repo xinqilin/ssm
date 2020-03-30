@@ -11,12 +11,14 @@
 		<package name="com.ssm.bean"></package>
 	</typeAliases>
 
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- config params as the following -->
+			<!-- <property name="param1" value="value1" /> -->
+		</plugin>
+	</plugins>
 
-	<!-- 
-	<mappers>
-		<mapper
-			resource='/ssm/src/main/resources/mappers/EmpMapper.xml' />
-	</mappers>
-	 -->
+	<!-- <mappers> <mapper resource='/ssm/src/main/resources/mappers/EmpMapper.xml' 
+		/> </mappers> -->
 
 </configuration>
