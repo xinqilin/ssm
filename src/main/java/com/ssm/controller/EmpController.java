@@ -22,6 +22,7 @@ public class EmpController {
 	
 
 	
+<<<<<<< HEAD
 	@GetMapping("/emp{id}")
 	public Employee getOneEmp(@PathVariable("id") Integer id) {
 		Employee e=empService.getOne(id);
@@ -36,5 +37,8 @@ public class EmpController {
 		System.out.println(list.get(0).getLastName());
 		return list;
 	}
+=======
+	
+>>>>>>> dev
 
 }

@@ -1,56 +1,103 @@
 package com.ssm.bean;
 
-
+import javax.validation.constraints.Pattern;
 
 public class Employee {
-	private Integer id;
-	private String lastName;
+	private Integer empId;
+	@Pattern(regexp = "(^[a-zA-Z0-9_-]{4,16}$)|(^[\\u2E80-\\u9FFF]{2,5})", message = "用户名必须是4-16位英文数字或2-5位中文")
+	private String empName;
+
+	private String gender;
+	// @Email
+	@Pattern(regexp = "^([a-zA-Z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$", message = "jsr303邮箱格式错误")
 	private String email;
+<<<<<<< HEAD
 	private Integer gender;
 	private Integer did;
+=======
+
+	private Integer dId;
+
+>>>>>>> dev
 	private Department department;
-	public Integer getId() {
-		return id;
+
+	public Employee() {
+		// TODO Auto-generated constructor stub
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
+
+	public Employee(Integer empId, String empName, String gender, String email, Integer dId) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.gender = gender;
 		this.email = email;
+		this.dId = dId;
 	}
-	public Integer getGender() {
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Integer getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName == null ? null : empName.trim();
+	}
+
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(Integer gender) {
-		this.gender = gender;
+
+	public void setGender(String gender) {
+		this.gender = gender == null ? null : gender.trim();
 	}
+<<<<<<< HEAD
 	public Integer getDid() {
 		return did;
 	}
 	public void setD_id(Integer did) {
 		this.did = did;
+=======
+
+	public String getEmail() {
+		return email;
 	}
-	public Department getDepartment() {
-		return department;
+
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
+>>>>>>> dev
 	}
-	public void setDepartment(Department department) {
-		this.department = department;
+
+	public Integer getdId() {
+		return dId;
 	}
+
+	public void setdId(Integer dId) {
+		this.dId = dId;
+	}
+
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Employee [id=" + id + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender + ", d_id="
 				+ did + ", department=" + department + "]";
+=======
+		return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", email=" + email
+				+ ", dId=" + dId + ", department=" + department + "]";
+>>>>>>> dev
 	}
-	
-	
-	
 }
