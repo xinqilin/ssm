@@ -22,19 +22,6 @@ public class EmpController {
 	
 
 	
-	@GetMapping("/emp{id}")
-	public Employee getOneEmp(@PathVariable("id") Integer id) {
-		Employee e=empService.getOne(id);
-		System.out.println(e.getId()+","+e.getLastName()+",");
-		System.out.println(e.getDepartment());
-		return empService.getOne(id);
-	}
 	
-	@GetMapping("/getall")
-	public List<Employee> getAll() {
-		List<Employee> list=empService.getAll();
-		list.get(0).getLastName();
-		return list;
-	}
 
 }

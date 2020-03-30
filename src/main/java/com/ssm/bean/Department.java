@@ -1,24 +1,33 @@
 package com.ssm.bean;
 
 public class Department {
-	private Integer id;
-	private String departmentName;
-	public Integer getId() {
-		return id;
+    private Integer deptId;
+
+    private String deptName;
+    
+    public Department() {
+		// TODO Auto-generated constructor stub
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+    public Department(Integer deptId, String deptName) {
+		super();
+		this.deptId = deptId;
+		this.deptName = deptName;
 	}
-	public String getDepartmentName() {
-		return departmentName;
-	}
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", departmentName=" + departmentName + "]";
-	}
-	
-	
+
+	public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName == null ? null : deptName.trim();
+    }
 }
