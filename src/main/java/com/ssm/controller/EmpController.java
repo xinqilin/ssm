@@ -30,14 +30,19 @@ public class EmpController {
 //		return empService.getOne(id);
 //	}
 	
-	@GetMapping("/getall")
+	@GetMapping("/getAll")
 	public String getAll(@RequestParam(value="pn",defaultValue="1") Integer pn,Model model) {
 		
+		//每頁
 		PageHelper.startPage(pn, 5);
 		List<Employee> list=empService.getAll();
 		
+		//下標顯示多少頁
 		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
-		model.addAttribute("page",pageInfo);
+		model.addAttribute("pageInfo",pageInfo);
+		System.out.println("pageInfo: "+pageInfo.getNavigatepageNums());
+		
+		
 		return "list";
 	}
 
