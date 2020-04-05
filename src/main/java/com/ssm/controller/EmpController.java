@@ -16,7 +16,7 @@ import com.github.pagehelper.PageInfo;
 import com.ssm.bean.Employee;
 import com.ssm.service.EmpService;
 
-@ResponseBody
+//@ResponseBody
 @Controller
 public class EmpController {
 

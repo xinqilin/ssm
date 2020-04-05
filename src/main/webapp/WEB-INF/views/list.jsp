@@ -13,5 +13,58 @@
 </head>
 <body>
 
+
+	<div class="container">
+		<!-- 標題 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h2>SSM</h2>
+			</div>
+		</div>
+<!-- 		新增、刪除按鈕 -->
+		<div class="row">
+			<div class="col-md-4 col-md-offset-8">
+				<button class="btn btn-primary">新增</button>
+				<button class="btn btn-danger">刪除</button>
+			</div>
+		</div>
+<!-- 		顯示getAll資料 -->
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-hover">
+					<tr>
+						<th>ID</th>
+						<th>名字</th>
+						<th>性別</th>
+						<th>e-mail</th>
+						<th>部門</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<th>1</th>
+						<th>11</th>
+						<th>1</th>
+						<th>1111</th>
+						<th>1</th>
+						<th>
+							<button class="btn btn-success">修改</button>
+							<button class="btn btn-danger">刪除</button>
+						</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- 		分頁 -->
+		<div class="row">
+			<div class="col-md-6">
+				當前紀錄
+			</div>
+			<div class="col-md-6">
+				
+			</div>
+		</div>
+	
+	</div>
+
 </body>
 </html>
