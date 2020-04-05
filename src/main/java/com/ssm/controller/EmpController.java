@@ -34,13 +34,16 @@ public class EmpController {
 	public String getAll(@RequestParam(value="pn",defaultValue="1") Integer pn,Model model) {
 		
 		//每頁
-		PageHelper.startPage(pn, 5);
+		PageHelper.startPage(pn, 2);
 		List<Employee> list=empService.getAll();
 		
 		//下標顯示多少頁
 //		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
-		PageInfo pageInfo=new PageInfo(list,6);
+		PageInfo pageInfo=new PageInfo(list,3);
 		model.addAttribute("pageInfo",pageInfo);
+		System.out.println("size:"+list.size()+",   list is empty?"+list.isEmpty());
+		
+		System.out.println(pageInfo);
 		System.out.println("pageInfo: "+pageInfo.getNavigatepageNums());
 		
 		
