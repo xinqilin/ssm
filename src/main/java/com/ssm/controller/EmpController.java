@@ -38,7 +38,8 @@ public class EmpController {
 		List<Employee> list=empService.getAll();
 		
 		//下標顯示多少頁
-		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
+//		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
+		PageInfo pageInfo=new PageInfo(list,6);
 		model.addAttribute("pageInfo",pageInfo);
 		System.out.println("pageInfo: "+pageInfo.getNavigatepageNums());
 		
