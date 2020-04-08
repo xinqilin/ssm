@@ -35,7 +35,7 @@ public class DBTest {
 		EmployeeMapper mapper = (EmployeeMapper) sqlsession.getMapper(EmployeeMapper.class);
 		for (int i = 0; i < 50; i++) {
 			String uid = UUID.randomUUID().toString().substring(0, 5) + i;
-			mapper.insertSelective(new Employee(null,uid,uid+"@gmail.com",0,1000+i%6));
+			mapper.insertSelective(new Employee(null,uid,0,uid+"@gmail.com",1000+i%6));
 		}
 		System.out.println("success");
 

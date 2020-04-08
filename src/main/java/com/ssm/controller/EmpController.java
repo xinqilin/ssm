@@ -39,7 +39,7 @@ public class EmpController {
 		
 		//下標顯示多少頁
 //		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,6);
-		PageInfo pageInfo=new PageInfo(list,3);
+		PageInfo<Employee> pageInfo=new PageInfo<Employee>(list,3);
 		model.addAttribute("pageInfo",pageInfo);
 		System.out.println("size:"+list.size()+",   list is empty?"+list.isEmpty());
 		
