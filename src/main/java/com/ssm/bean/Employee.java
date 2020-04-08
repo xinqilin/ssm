@@ -7,13 +7,21 @@ public class Employee {
 	@Pattern(regexp = "(^[a-zA-Z0-9_-]{4,16}$)|(^[\\u2E80-\\u9FFF]{2,5})", message = "用户名必须是4-16位英文数字或2-5位中文")
 	private String empName;
 
-	private String gender;
+	private Integer gender;
 	// @Email
 	@Pattern(regexp = "^([a-zA-Z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$", message = "mail格式錯誤")
 	private String email;
 	private Integer dId;
 	private Department department;
 	
+	public Employee(Integer empId, String empName, String email,Integer gender, Integer dId) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.gender = gender;
+		this.email = email;
+		this.dId = dId;
+	}
 	
 	public Integer getEmpId() {
 		return empId;
@@ -27,10 +35,10 @@ public class Employee {
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 	public String getEmail() {
@@ -45,6 +53,13 @@ public class Employee {
 	public void setdId(Integer dId) {
 		this.dId = dId;
 	}
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", email=" + email
+				+ ", dId=" + dId + ", department=" + department + "]";
+	}
+	
+	
 	
 
 
