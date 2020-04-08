@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="UTF-8"%>
- <<jsp:forward page="/getAll"></jsp:forward>
+ <jsp:forward page="/getAll"></jsp:forward>
 <!DOCTYPE html>
 <html>
 <head>
