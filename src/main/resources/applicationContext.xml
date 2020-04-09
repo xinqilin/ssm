@@ -32,10 +32,16 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
- 		<property name="basePackage" value="com.ssm" />
+ 		<property name="basePackage" value="com.ssm.mapper" />
  		<!-- 
  		<property name="basePackage" value="org.mybatis.spring.sample.mapper" />
  		 -->
+	</bean>
+	
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
 	</bean>
 	
 	<bean id="transactionManager" 

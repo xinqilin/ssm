@@ -29,11 +29,16 @@ public class DBTest {
 
 	@Test
 	public void testCRUD() {
+		
 //		ApplicationContext ioc=new ClassPathXmlApplicationContext("applicationContext.xml");
-
-//		employeeMapper.insertSelective(new Employee(null, "Jerry", "M", "Jerry@qq.com", 1));
+//		EmployeeMapper bean=(EmployeeMapper) ioc.getBean(EmployeeMapper.class);
+//		System.out.println(bean);
+//		employeeMapper.insertSelective(new Employee(null, "Jerry", 1, "Jerry@qq.com", 1001));
+		
+//		---above success---
+		
 		EmployeeMapper mapper = (EmployeeMapper) sqlsession.getMapper(EmployeeMapper.class);
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 20; i++) {
 			String uid = UUID.randomUUID().toString().substring(0, 5) + i;
 			mapper.insertSelective(new Employee(null,uid,0,uid+"@gmail.com",1000+i%6));
 		}
