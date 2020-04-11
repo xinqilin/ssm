@@ -46,9 +46,17 @@
 						<tr>
 							<th>${emp.empId}</th>
 							<th>${emp.empName}</th>
+							<c:choose>
+								<c:when test="${emp.gender==0}">
+									<th>male</th>
+								</c:when>
+								<c:otherwise>
+									<th>female</th>
+								</c:otherwise>
+							</c:choose>
 							<th>${emp.email}</th>
-							<th>${emp.gender}</th>
-							<th>${emp.dId}</th>
+<%-- 							<th>${emp.department.deptName}</th> --%>
+								<th>${emp.dId}</th>
 							<th>
 								<div>
 									<button class="btn btn-success">修改</button>
@@ -64,29 +72,48 @@
 <!-- 		分頁 -->
 		<div class="row">
 				<div class="col-md-6">
-					當前紀錄
-					
+					現在在第  ${pageInfo.pageNum} 頁，總共: ${pageInfo.pages}頁<br>
+					有${pageInfo.total}筆資料
 				</div>
 				
 				<div class="col-md-6">
 	<!-- 				分頁條 -->
 						<nav aria-label="Page navigation example">
 							  <ul class="pagination">
-							  	<li class="page-item" ><a class="page-link" href="#">第一頁</a></li>
+							  
+<!-- 							  首頁 -->
+							  	<li class="page-item" ><a class="page-link" href="${pageContext.request.contextPath }/getAll?pn=1">第一頁</a></li>
+							  	
+<!-- 							  	上一頁 -->
+						<c:if test="${pageInfo.hasPreviousPage}">
 							    <li class="page-item">
-							      <a class="page-link" href="#" aria-label="Previous">
+							      <a class="page-link" href="${pageContext.request.contextPath}/getAll?pn=${pageInfo.pageNum-1}" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
-							    <li class="page-item"><a class="page-link" href="#">1</a></li>
-							    <li class="page-item"><a class="page-link" href="#">2</a></li>
-							    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						</c:if>
+							    
+<!-- 							    現在在的頁 -->
+								<c:forEach items="${pageInfo.navigatepageNums}" var="page">
+									<c:choose>
+										<c:when test="${pageInfo.pageNum==page}">
+							    			<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/getAll?pn=${page}">${page}</a></li>
+							    		</c:when>
+							    		<c:otherwise>
+							    			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/getAll?pn=${page}">${page}</a></li>
+							    		</c:otherwise>
+							    	</c:choose>
+							   	</c:forEach>
+<!-- 							   下一頁 -->
+						<c:if test="${pageInfo.hasNextPage}">
 							    <li class="page-item">
-							      <a class="page-link" href="#" aria-label="Next">
+							      <a class="page-link" href="${pageContext.request.contextPath }/getAll?pn=${pageInfo.pageNum+1}" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
-							    <li class="page-item"><a class="page-link"  href="#">最後一頁</a></li>
+						</c:if>	    
+<!-- 							    末頁 -->
+							    <li class="page-item"><a class="page-link"  href="${pageContext.request.contextPath }/getAll?pn=${pageInfo.pages}">最後一頁</a></li>
 							  </ul>
 						</nav>
 				</div>

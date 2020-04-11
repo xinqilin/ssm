@@ -8,6 +8,7 @@ public class Employee {
 	private String empName;
 
 	private Integer gender;
+	
 	// @Email
 	@Pattern(regexp = "^([a-zA-Z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$", message = "mail格式錯誤")
 	private String email;
@@ -60,7 +61,13 @@ public class Employee {
 	}
 	
 	
-	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 
 
 	

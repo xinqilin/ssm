@@ -43,8 +43,6 @@ public class EmpController {
 //		System.out.println("size:"+list.size()+",   list is empty?"+list.isEmpty());
 //		System.out.println(pageInfo);
 //		System.out.println("pageInfo: "+pageInfo.getNavigatepageNums());
-		
-		
 		return "list";
 	}
 
