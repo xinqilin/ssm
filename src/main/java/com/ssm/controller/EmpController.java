@@ -15,6 +15,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ssm.bean.Employee;
+import com.ssm.bean.Msg;
 import com.ssm.service.EmpService;
 
 //@ResponseBody
@@ -29,7 +30,7 @@ public class EmpController {
 //	ajax寫法
 	@ResponseBody
 	@GetMapping("/getAllReturnJson")
-	public PageInfo getAllReturnJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+	public Msg getAllReturnJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
 		// 每頁
 		PageHelper.startPage(pn, 5);
@@ -38,7 +39,7 @@ public class EmpController {
 		// 下標顯示多少頁
 		PageInfo<Employee> pageInfo = new PageInfo<Employee>(list, 3);
 //		model.addAttribute("pageInfo", pageInfo);
-		return pageInfo;
+		return Msg.success().add("pageInfo", pageInfo);
 	}
 	
 	
