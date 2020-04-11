@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,16 +18,17 @@
 		<!-- 標題 -->
 		<div class="row">
 			<div class="col-md-12">
-				<h2>SSM</h2>
+				<h2>Bill's SSM Practice</h2>
 			</div>
 		</div>
 <!-- 		新增、刪除按鈕 -->
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
 				<button class="btn btn-primary">新增</button>
-				<button class="btn btn-danger">刪除</button>
+<!-- 				<button class="btn btn-danger">刪除</button> -->
 			</div>
 		</div>
+		<br>
 <!-- 		顯示getAll資料 -->
 		<div class="row">
 			<div class="col-md-12">
@@ -38,30 +39,57 @@
 						<th>性別</th>
 						<th>e-mail</th>
 						<th>部門</th>
-						<th>操作</th>
+						<th>&nbsp;&nbsp;操作</th>
 					</tr>
-					<tr>
-						<th>1</th>
-						<th>11</th>
-						<th>1</th>
-						<th>1111</th>
-						<th>1</th>
-						<th>
-							<button class="btn btn-success">修改</button>
-							<button class="btn btn-danger">刪除</button>
-						</th>
-					</tr>
+					
+					<c:forEach items="${pageInfo.list}" var="emp">					
+						<tr>
+							<th>${emp.empId}</th>
+							<th>${emp.empName}</th>
+							<th>${emp.email}</th>
+							<th>${emp.gender}</th>
+							<th>${emp.dId}</th>
+							<th>
+								<div>
+									<button class="btn btn-success">修改</button>
+									<button class="btn btn-danger">刪除</button>
+								</div>
+							</th>
+						</tr>
+					</c:forEach>
+					
 				</table>
 			</div>
 		</div>
 <!-- 		分頁 -->
 		<div class="row">
-			<div class="col-md-6">
-				當前紀錄
-			</div>
-			<div class="col-md-6">
+				<div class="col-md-6">
+					當前紀錄
+					
+				</div>
 				
-			</div>
+				<div class="col-md-6">
+	<!-- 				分頁條 -->
+						<nav aria-label="Page navigation example">
+							  <ul class="pagination">
+							  	<li class="page-item" ><a class="page-link" href="#">第一頁</a></li>
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+							    <li class="page-item"><a class="page-link" href="#">1</a></li>
+							    <li class="page-item"><a class="page-link" href="#">2</a></li>
+							    <li class="page-item"><a class="page-link" href="#">3</a></li>
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+							    <li class="page-item"><a class="page-link"  href="#">最後一頁</a></li>
+							  </ul>
+						</nav>
+				</div>
 		</div>
 	
 	</div>
