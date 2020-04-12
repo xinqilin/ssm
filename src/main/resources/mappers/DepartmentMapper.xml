@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.mapper.DepartmentMapper">
   <resultMap id="BaseResultMap" type="com.ssm.bean.Department">
-    <id column="id" jdbcType="INTEGER" property="deptId" />
-    <result column="departmentName" jdbcType="VARCHAR" property="deptName" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="departmentName" jdbcType="VARCHAR" property="departmentName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    dept_id, dept_name
+    id, departmentName
   </sql>
   <select id="selectByExample" parameterType="com.ssm.bean.DepartmentExample" resultMap="BaseResultMap">
     select
@@ -84,11 +84,11 @@
     select 
     <include refid="Base_Column_List" />
     from department
-    where dept_id = #{deptId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from department
-    where dept_id = #{deptId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ssm.bean.DepartmentExample">
     delete from department
@@ -97,25 +97,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ssm.bean.Department">
-    insert into department (dept_id, dept_name)
-    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR})
+    insert into department (id, departmentName)
+    values (#{id,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ssm.bean.Department">
     insert into department
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="deptId != null">
-        dept_id,
+      <if test="id != null">
+        id,
       </if>
-      <if test="deptName != null">
-        dept_name,
+      <if test="departmentName != null">
+        departmentName,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="deptId != null">
-        #{deptId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="deptName != null">
-        #{deptName,jdbcType=VARCHAR},
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -128,11 +128,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update department
     <set>
-      <if test="record.deptId != null">
-        dept_id = #{record.deptId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.deptName != null">
-        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      <if test="record.departmentName != null">
+        departmentName = #{record.departmentName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -141,8 +141,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update department
-    set dept_id = #{record.deptId,jdbcType=INTEGER},
-      dept_name = #{record.deptName,jdbcType=VARCHAR}
+    set id = #{record.id,jdbcType=INTEGER},
+      departmentName = #{record.departmentName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -150,15 +150,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ssm.bean.Department">
     update department
     <set>
-      <if test="deptName != null">
-        dept_name = #{deptName,jdbcType=VARCHAR},
+      <if test="departmentName != null">
+        departmentName = #{departmentName,jdbcType=VARCHAR},
       </if>
     </set>
-    where dept_id = #{deptId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ssm.bean.Department">
     update department
-    set dept_name = #{deptName,jdbcType=VARCHAR}
-    where dept_id = #{deptId,jdbcType=INTEGER}
+    set departmentName = #{departmentName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

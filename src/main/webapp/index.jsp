@@ -13,6 +13,65 @@
 </head>
 <body>
 
+		<div class="modal" tabindex="-1" role="dialog" id="addModal">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">員工新增</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       
+		       
+		      		 <form class="form-horizontal">
+							<div class="form-group">
+								<label for="empName_add_input" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" name="empName" class="form-control" id="addName" placeholder="name..."> <span id="helpBlock2"
+									 class="help-block"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="email_add_input" class="col-sm-2 control-label">email</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" name="email" id="addEmail" placeholder="xxx@gmail.com"> <span
+									 class="help-block"></span> <span id="helpBlock2" class="help-block"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Gender</label>
+								<div class="col-sm-10">
+									<label class="radio-inline"> 
+										<input type="radio" name="gender" id="addMale" value="0" checked="checked">男
+									</label> 
+									<label class="radio-inline"> 
+										<input type="radio" name="gender" id="addFemale" value="1">女
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Dept</label>
+								<div class="col-sm-4">
+									<select class="form-control" name="dId" id="addDept">
+
+									</select>
+								</div>
+							</div>
+						</form>
+		       
+		       
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary">Save</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
 
 	<div class="container">
 		<!-- 標題 -->
@@ -21,11 +80,11 @@
 				<h2>Bill's SSM Practice Ajax Version</h2>
 			</div>
 		</div>
-<!-- 		新增、刪除按鈕 -->
+<!-- 		新增按鈕 -->
 		<div class="row">
-			<div class="col-md-4 col-md-offset-8">
-				<button class="btn btn-primary">新增</button>
-<!-- 				<button class="btn btn-danger">刪除</button> -->
+			<div class="col-md-9"></div>
+			<div class="col-md-3">
+				<button class="btn btn-primary" id="addButton">新增</button>
 			</div>
 		</div>
 		<br>
@@ -178,6 +237,43 @@
 			
 			
 		}
+	</script>
+	
+	
+	
+	
+	
+	
+<!-- 	新增 -->
+	<script type="text/javascript">
+		$("#addButton").click(function(){
+			getDept();
+			
+			$("#addModal").modal({
+				backdrop: "static"
+			});
+			
+			
+		});
+		
+		function getDept(){
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/getDept",
+				type:"get",
+				dataType:"json",
+				success:function(result){
+// 					console.log(result);
+					$.each(result.returnMap.dept,function(index,item){
+						$("<option></option>").append(item.departmentName)
+											  .attr("value",item.id)
+											  .appendTo("#addDept");
+					});
+				}
+				
+			});
+		}
+	
 	</script>
 
 </body>
