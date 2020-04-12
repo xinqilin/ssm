@@ -48,54 +48,14 @@
 				</table>
 			</div>
 		</div>
+		
+		
+		
 <!-- 		分頁 -->
 		<div class="row">
-				<div class="col-md-6">
-					現在在第   頁，總共: 頁<br>
-					有筆資料
-				</div>
+				<div class="col-md-6" id="pageInfo"></div>
 				
-				<div class="col-md-6">
-	<!-- 				分頁條 -->
-						<nav aria-label="Page navigation example">
-							  <ul class="pagination">
-							  
-<!-- 							  首頁 -->
-							  	<li class="page-item" ><a class="page-link" href="">第一頁</a></li>
-							  	
-<!-- 							  	上一頁 -->
-						<c:if test="">
-							    <li class="page-item">
-							      <a class="page-link" href="" aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-						</c:if>
-							    
-<!-- 							    現在在的頁 -->
-								<c:forEach items="" var="page">
-									<c:choose>
-										<c:when test="">
-							    			<li class="page-item active"><a class="page-link" href="">${page}</a></li>
-							    		</c:when>
-							    		<c:otherwise>
-							    			<li class="page-item"><a class="page-link" href="">${page}</a></li>
-							    		</c:otherwise>
-							    	</c:choose>
-							   	</c:forEach>
-<!-- 							   下一頁 -->
-						<c:if test="">
-							    <li class="page-item">
-							      <a class="page-link" href="" aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						</c:if>	    
-<!-- 							    末頁 -->
-							    <li class="page-item"><a class="page-link"  href="">最後一頁</a></li>
-							  </ul>
-						</nav>
-				</div>
+				<div class="col-md-6" id="pages"></div>
 		</div>
 	
 	</div>
@@ -112,6 +72,8 @@
 				success:function(result){
 					console.log(result);
 					list(result);
+					navInfo(result);
+					nav(result);
 					
 				},
 				fail:function(result){
@@ -119,6 +81,7 @@
 				}
 			});
 		});
+		
 		
 		function list(result) {
 			var emps=result.returnMap.pageInfo.list;
@@ -130,20 +93,48 @@
 				var empDept=$("<td></td>").append(item.dId);
 				var editButton=$("<button></button>").addClass("btn btn-success").append("Edit");
 				var deleteButton=$("<button></button>").addClass("btn btn-danger").append("Delete");
+				var buttons=$("<td></td>").append(editButton).append(" ").append(deleteButton);
 				$("<tr></tr>").append(empId)
 							  .append(empName)
 							  .append(empGender)
 							  .append(empEmail)
 							  .append(empDept)
-							  .append(editButton)
-							  .append(deleteButton)
+							  .append(buttons)
 							  .appendTo("#dataInHere tbody");
 							  
 				
 			});
 		}
 		
+		
+		function navInfo(result){
+			var navInfo=result.returnMap.pageInfo;
+			$("<font></font>").append("現在在第 "+ navInfo.pageNum +" 頁，總共:"+navInfo.pages+" 頁<br>有"+navInfo.total+" 筆資料")
+							 .appendTo("#pageInfo");
+			
+		}
+		
 		function nav(result) {
+			var navInfo=result.returnMap.pageInfo;
+			
+			var nav=$("<nav></nav>");
+			var ul=$("<ul></ul>").addClass("pagination");
+			var firstPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr("href","#").append("首頁"));
+			var lastPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr("href","#").append("末頁"));;
+			var previousPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr({"aria-label":"Previous","href":"#"}).append("<span></span>").attr("aria-hidden","true").append("&laquo;"));
+			var nextPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr({"aria-label":"Next","href":"#"}).append("<span></span>").attr("aria-hidden","true").append("&raquo;"));;
+			
+			ul.append(firstPage).append(previousPage)
+			
+			$.each(navInfo.navigatepageNums,function(index,item){
+				var per=$("<li></li>").addClass("page-item").append("<a></a>").addClass("page-link").attr("href","#").append(item);
+				ul.append(per);
+			});
+			
+			
+			ul.append(nextPage).append(lastPage);
+			nav.append(ul).appendTo("#pages");
+
 			
 		}
 	</script>
