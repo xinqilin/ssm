@@ -64,9 +64,13 @@
 <!-- 	listAll ajax -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			goToPage(1);
+		});
+		
+		function goToPage(pn){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/getAllReturnJson",
-				data:"pn=1",
+				data:"pn="+pn,
 				type:"get",
 				dataType:"json",
 				success:function(result){
@@ -80,10 +84,10 @@
 					alert("fail");
 				}
 			});
-		});
-		
+		}
 		
 		function list(result) {
+			$("#dataInHere tbody").empty();
 			var emps=result.returnMap.pageInfo.list;
 			$.each(emps,function(index,item){
 				var empId=$("<td></td>").append(item.empId);
@@ -108,6 +112,7 @@
 		
 		
 		function navInfo(result){
+			$("#pageInfo").empty();
 			var navInfo=result.returnMap.pageInfo;
 			$("<font></font>").append("現在在第 "+ navInfo.pageNum +" 頁，總共:"+navInfo.pages+" 頁<br>有"+navInfo.total+" 筆資料")
 							 .appendTo("#pageInfo");
@@ -115,6 +120,7 @@
 		}
 		
 		function nav(result) {
+			$("#pages").empty();
 			var navInfo=result.returnMap.pageInfo;
 			
 			var nav=$("<nav></nav>");
@@ -124,17 +130,52 @@
 			var previousPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr({"aria-label":"Previous","href":"#"}).append("<span></span>").attr("aria-hidden","true").append("&laquo;"));
 			var nextPage=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").attr({"aria-label":"Next","href":"#"}).append("<span></span>").attr("aria-hidden","true").append("&raquo;"));;
 			
-			ul.append(firstPage).append(previousPage)
+			
+			if(navInfo.isFirstPage){
+				firstPage.addClass("disabled");
+				previousPage.addClass("disabled");
+			}else{
+				firstPage.click(function(){
+					goToPage(1);
+				});
+				previousPage.click(function(){
+					goToPage(navInfo.pageNum-1);
+				});
+			}
+			
+			
+			
+			ul.append(firstPage).append(previousPage);
 			
 			$.each(navInfo.navigatepageNums,function(index,item){
-				var per=$("<li></li>").addClass("page-item").append("<a></a>").addClass("page-link").attr("href","#").append(item);
+				var link=$("<a></a>").attr({"class":"page-link","href":"#"}).append(item);
+				var per=$("<li></li>").addClass("page-item").append(link);
+				if(item == navInfo.pageNum){
+					per.addClass("active");
+				}
+				per.click(function(){
+					goToPage(item);
+				});
+				
 				ul.append(per);
 			});
 			
 			
+			if(navInfo.isLastPage){
+				lastPage.addClass("disabled");
+				nextPage.addClass("disabled");
+			}else{
+				lastPage.click(function(){
+					goToPage(navInfo.pages);
+				});
+				nextPage.click(function(){
+					goToPage(navInfo.pageNum+1);
+				});
+			}
+			
 			ul.append(nextPage).append(lastPage);
 			nav.append(ul).appendTo("#pages");
-
+			
 			
 		}
 	</script>
