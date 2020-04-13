@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +28,19 @@ public class EmpController {
 	@Autowired
 	EmpService empService;
 
-
+//	@RequestMapping(value="/addEmp",method=RequestMethod.POST)
+	@ResponseBody
+	@PostMapping("/addEmp")
+	public Msg addEmp(Employee employee) {
+		System.out.println(" enter controller");
+		empService.addEmp(employee);
+		System.out.println(" add done!");
+		return Msg.success();
+	}
+	
+	
+	
+	
 
 //	ajax寫法
 	@ResponseBody

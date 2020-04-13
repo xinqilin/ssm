@@ -34,13 +34,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="email_add_input" class="col-sm-2 control-label">email</label>
-								<div class="col-sm-10">
-									<input type="email" class="form-control" name="email" id="addEmail" placeholder="xxx@gmail.com"> <span
-									 class="help-block"></span> <span id="helpBlock2" class="help-block"></span>
-								</div>
-							</div>
-							<div class="form-group">
 								<label class="col-sm-2 control-label">Gender</label>
 								<div class="col-sm-10">
 									<label class="radio-inline"> 
@@ -51,6 +44,14 @@
 									</label>
 								</div>
 							</div>
+							<div class="form-group">
+								<label for="email_add_input" class="col-sm-2 control-label">email</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" name="email" id="addEmail" placeholder="xxx@gmail.com"> <span
+									 class="help-block"></span> <span id="helpBlock2" class="help-block"></span>
+								</div>
+							</div>
+							
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Dept</label>
 								<div class="col-sm-4">
@@ -64,7 +65,7 @@
 		       
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary">Save</button>
+		        <button type="button" class="btn btn-primary" id="saveButton">Save</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
@@ -257,7 +258,7 @@
 		});
 		
 		function getDept(){
-			
+			$("#addDept").empty();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/getDept",
 				type:"get",
@@ -273,6 +274,26 @@
 				
 			});
 		}
+		
+		
+		$("#saveButton").click(function(){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/addEmp",
+				type:"POST",
+				data:$("#addModal form").serialize(),
+// 				dataType:"json",
+				success:function(result){
+					if(result.code==100){
+						alert(result.msg);
+						$("#addModal").modal('hide');
+					}else{
+						console.log(result.msg);
+					}
+					
+				}
+				
+			});
+		});
 	
 	</script>
 

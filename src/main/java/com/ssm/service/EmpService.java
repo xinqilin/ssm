@@ -19,4 +19,9 @@ public class EmpService {
 //		return empMapper.selectByExampleWithDept(null);
 		return empMapper.selectByExample(null);
 	}
+	
+	
+	public void addEmp(Employee employee) {
+		empMapper.insertSelective(employee);
+	}
 }
