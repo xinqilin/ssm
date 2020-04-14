@@ -29,8 +29,8 @@
 							<div class="form-group">
 								<label for="empName_add_input" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
-									<input type="text" name="empName" class="form-control" id="addName" placeholder="name..."> <span id="helpBlock2"
-									 class="help-block"></span>
+									<input type="text" name="empName" class="form-control" id="addName" placeholder="name..."> 
+									<span id="nameValidate" class="help-block"></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -250,9 +250,11 @@
 			
 		}
 	
-<!-- 	新增 -->
+<!-- 新增 -->
 
 		$("#addButton").click(function(){
+			$("#addModal form")[0].reset();
+			$("#addModal form span").text("");
 			getDept();
 			
 			$("#addModal").modal({
@@ -280,16 +282,47 @@
 			});
 		}
 		
+		$("#addName").keyup(function(){
+			$("#nameValidate").parent().removeClass("has-success has-error");
+			$("#addName").next("span").text("");
+			var name=$("#addName").val();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/checkUserName",
+				data:"userName="+name,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					if(result.code==100){
+						$("#saveButton").attr("disabled",false);
+						$("#nameValidate").text("可用");
+						$("#addName").parent().addClass("has-success");
+					}else{
+						$("#saveButton").attr("disabled",true);
+						$("#nameValidate").text("名字重複");
+						$("#addName").parent().addClass("has-error");
+					}
+				}
+			});
+		});
+		
+		
 		$("#addEmail").keyup(function(){
 			$("#emailValidate").empty();
+			$("#emailValidate").removeAttr("style");
 			var input=$("#addEmail").val();
 			var inputReg=/^[A-Za-z0-9._%+-]+@[A-Z0-9a-z]+\.[a-z]{2,}$/;
 // 			alert(inputReg.test(input));
 			if(inputReg.test(input)){
+// 				$("#addEmail").parent().addClass("has-success");
 				$("#emailValidate").append("yes");
+				$("#emailValidate").attr("color","green");
+				$("#addEmail").attr("style","border-color:green");
 				$("#saveButton").attr("disabled",false);
 			}else{
+// 				$("#addEmail").parent().addClass("has-error");
 				$("#emailValidate").append("no");
+				$("#emailValidate").attr("color","red");
+				$("#addEmail").attr("style","border-color:red");
 				$("#saveButton").attr("disabled",true);
 			}
 		});

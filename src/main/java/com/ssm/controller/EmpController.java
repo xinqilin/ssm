@@ -28,6 +28,13 @@ public class EmpController {
 	@Autowired
 	EmpService empService;
 
+	@ResponseBody
+	@PostMapping("/checkUserName")
+	public Msg checkUserName(@RequestParam("userName") String userName) {
+		boolean b = empService.checkUser(userName);
+		return b ? Msg.success() : Msg.fail();
+	}
+
 //	@RequestMapping(value="/addEmp",method=RequestMethod.POST)
 	@ResponseBody
 	@PostMapping("/addEmp")
@@ -37,10 +44,6 @@ public class EmpController {
 		System.out.println(" add done!");
 		return Msg.success();
 	}
-	
-	
-	
-	
 
 //	ajax寫法
 	@ResponseBody
@@ -56,9 +59,6 @@ public class EmpController {
 //		model.addAttribute("pageInfo", pageInfo);
 		return Msg.success().add("pageInfo", pageInfo);
 	}
-	
-	
-	
 
 //	頁面跳轉
 //	@GetMapping("/getAll")

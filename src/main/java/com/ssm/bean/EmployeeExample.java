@@ -165,72 +165,72 @@ public class EmployeeExample {
         }
 
         public Criteria andEmpNameIsNull() {
-            addCriterion("emp_name is null");
+            addCriterion("lastName is null");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameIsNotNull() {
-            addCriterion("emp_name is not null");
+            addCriterion("lastName is not null");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameEqualTo(String value) {
-            addCriterion("emp_name =", value, "empName");
+            addCriterion("lastName =", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameNotEqualTo(String value) {
-            addCriterion("emp_name <>", value, "empName");
+            addCriterion("lastName <>", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameGreaterThan(String value) {
-            addCriterion("emp_name >", value, "empName");
+            addCriterion("lastName >", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameGreaterThanOrEqualTo(String value) {
-            addCriterion("emp_name >=", value, "empName");
+            addCriterion("lastName >=", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameLessThan(String value) {
-            addCriterion("emp_name <", value, "empName");
+            addCriterion("lastName <", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameLessThanOrEqualTo(String value) {
-            addCriterion("emp_name <=", value, "empName");
+            addCriterion("lastName <=", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameLike(String value) {
-            addCriterion("emp_name like", value, "empName");
+            addCriterion("lastName like", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameNotLike(String value) {
-            addCriterion("emp_name not like", value, "empName");
+            addCriterion("lastName not like", value, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameIn(List<String> values) {
-            addCriterion("emp_name in", values, "empName");
+            addCriterion("lastName in", values, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameNotIn(List<String> values) {
-            addCriterion("emp_name not in", values, "empName");
+            addCriterion("lastName not in", values, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameBetween(String value1, String value2) {
-            addCriterion("emp_name between", value1, value2, "empName");
+            addCriterion("lastName between", value1, value2, "empName");
             return (Criteria) this;
         }
 
         public Criteria andEmpNameNotBetween(String value1, String value2) {
-            addCriterion("emp_name not between", value1, value2, "empName");
+            addCriterion("lastName not between", value1, value2, "empName");
             return (Criteria) this;
         }
 
