@@ -46,9 +46,14 @@
 							</div>
 							<div class="form-group">
 								<label for="email_add_input" class="col-sm-2 control-label">email</label>
-								<div class="col-sm-10">
-									<input type="email" class="form-control" name="email" id="addEmail" placeholder="xxx@gmail.com"> <span
-									 class="help-block"></span> <span id="helpBlock2" class="help-block"></span>
+								<div class="row">
+									<div class="col-sm-7">
+										<input type="email" class="form-control" name="email" id="addEmail" placeholder="xxx@gmail.com"> 
+									</div>
+									<div class="col-sm-3">
+										<font id="emailValidate"></font>
+									</div>
+								
 								</div>
 							</div>
 							
@@ -245,7 +250,6 @@
 			
 		}
 	
-// -------------------------------------------------------------------------------------------	
 <!-- 	新增 -->
 
 		$("#addButton").click(function(){
@@ -276,6 +280,19 @@
 			});
 		}
 		
+		$("#addEmail").keyup(function(){
+			$("#emailValidate").empty();
+			var input=$("#addEmail").val();
+			var inputReg=/^[A-Za-z0-9._%+-]+@[A-Z0-9a-z]+\.[a-z]{2,}$/;
+// 			alert(inputReg.test(input));
+			if(inputReg.test(input)){
+				$("#emailValidate").append("yes");
+				$("#saveButton").attr("disabled",false);
+			}else{
+				$("#emailValidate").append("no");
+				$("#saveButton").attr("disabled",true);
+			}
+		});
 		
 		$("#saveButton").click(function(){
 			$.ajax({
@@ -286,7 +303,7 @@
 				success:function(result){
 					if(result.code==100){
 // 						顯示新增成功alert
-						alert(result.msg);
+// 						alert(result.msg);
 // 						modal關起來
 						$("#addModal").modal('hide');
 // 						去最後一頁  偷懶寫法->goToPage(9999)   , 但頁數大於9999的話會失效 ->所以用 筆數 (永遠大於頁數)
