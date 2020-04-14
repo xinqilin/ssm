@@ -123,6 +123,10 @@
 	
 <!-- 	listAll ajax -->
 	<script type="text/javascript">
+	
+// 	設全域變數，給新增玩的function到最後一頁
+	var totalRecord;
+		
 		$(document).ready(function(){
 			goToPage(1);
 		});
@@ -176,6 +180,8 @@
 			var navInfo=result.returnMap.pageInfo;
 			$("<font></font>").append("現在在第 "+ navInfo.pageNum +" 頁，總共:"+navInfo.pages+" 頁<br>有"+navInfo.total+" 筆資料")
 							 .appendTo("#pageInfo");
+			
+			totalRecord=navInfo.pages;
 			
 		}
 		
@@ -238,15 +244,10 @@
 			
 			
 		}
-	</script>
 	
-	
-	
-	
-	
-	
+// -------------------------------------------------------------------------------------------	
 <!-- 	新增 -->
-	<script type="text/javascript">
+
 		$("#addButton").click(function(){
 			getDept();
 			
@@ -284,8 +285,12 @@
 // 				dataType:"json",
 				success:function(result){
 					if(result.code==100){
+// 						顯示新增成功alert
 						alert(result.msg);
+// 						modal關起來
 						$("#addModal").modal('hide');
+// 						去最後一頁  偷懶寫法->goToPage(9999)   , 但頁數大於9999的話會失效 ->所以用 筆數 (永遠大於頁數)
+						goToPage(totalRecord);
 					}else{
 						console.log(result.msg);
 					}

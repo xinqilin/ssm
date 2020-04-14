@@ -15,6 +15,11 @@ public class Employee {
 	private Integer dId;
 	private Department department;
 	
+	public Employee() {
+		
+	}
+	
+	
 	public Employee(Integer empId, String empName,Integer gender, String email, Integer dId) {
 		super();
 		this.empId = empId;
