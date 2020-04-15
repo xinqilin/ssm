@@ -12,7 +12,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<!-- 			新增modal -->
 		<div class="modal" tabindex="-1" role="dialog" id="addModal">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -76,6 +76,82 @@
 		    </div>
 		  </div>
 		</div>
+
+
+<!-- 		修改modal -->
+<div class="modal" tabindex="-1" role="dialog" id="updateModal">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">員工修改</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       
+		       
+		      		 <form class="form-horizontal">
+		      				 <div class="form-group">
+								<label for="empName_add_input" class="col-sm-2 control-label">ID</label>
+								<div class="col-sm-10">
+									<input type="text" name="empId" class="form-control" id="updateID" readonly="readonly"> 
+								</div>
+							</div>
+		      		 
+		      		 
+							<div class="form-group">
+								<label for="empName_add_input" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10">
+									<input type="text" name="empName" class="form-control" id="updateName" placeholder="name..."> 
+									<span id="nameValidate" class="help-block"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Gender</label>
+								<div class="col-sm-10">
+									<label class="radio-inline"> 
+										<input type="radio" name="gender" id="updateMale" value="0" checked="checked">男
+									</label> 
+									<label class="radio-inline"> 
+										<input type="radio" name="gender" id="updateFemale" value="1">女
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="email_update_input" class="col-sm-2 control-label">email</label>
+								<div class="row">
+									<div class="col-sm-7">
+										<input type="email" class="form-control" name="email" id="updateEmail" placeholder="xxx@gmail.com"> 
+									</div>
+									<div class="col-sm-3">
+										<font id="emailValidate"></font>
+									</div>
+								
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Dept</label>
+								<div class="col-sm-4">
+									<select class="form-control" name="dId" id="updateDept">
+
+									</select>
+								</div>
+							</div>
+						</form>
+		       
+		       
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" id="updateButton">update</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
 
 
 
@@ -164,8 +240,8 @@
 				var empGender=$("<td></td>").append(item.gender==0?'male':'female');
 				var empEmail=$("<td></td>").append(item.email);
 				var empDept=$("<td></td>").append(item.dId);
-				var editButton=$("<button></button>").addClass("btn btn-success").append("Edit");
-				var deleteButton=$("<button></button>").addClass("btn btn-danger").append("Delete");
+				var editButton=$("<button></button>").addClass("btn btn-success edit").append("Edit");
+				var deleteButton=$("<button></button>").addClass("btn btn-danger delete").append("Delete");
 				var buttons=$("<td></td>").append(editButton).append(" ").append(deleteButton);
 				$("<tr></tr>").append(empId)
 							  .append(empName)
@@ -255,7 +331,7 @@
 		$("#addButton").click(function(){
 			$("#addModal form")[0].reset();
 			$("#addModal form span").text("");
-			getDept();
+			getDept("#addDept");
 			
 			$("#addModal").modal({
 				backdrop: "static"
@@ -264,8 +340,20 @@
 			
 		});
 		
-		function getDept(){
-			$("#addDept").empty();
+		
+		$(document).on("click",".edit",function(){
+			$("#updateModal form")[0].reset();
+			$("#updateModal form span").text("");
+			
+			getDept("#updateDept");
+			
+			$("#updateModal").modal({
+				backdrop: "static"
+			});
+		});
+		
+		function getDept(whichFunction){
+			$(whichFunction).empty();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/getDept",
 				type:"get",
@@ -275,7 +363,7 @@
 					$.each(result.returnMap.dept,function(index,item){
 						$("<option></option>").append(item.departmentName)
 											  .attr("value",item.id)
-											  .appendTo("#addDept");
+											  .appendTo(whichFunction);
 					});
 				}
 				
