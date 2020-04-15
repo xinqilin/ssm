@@ -1,10 +1,17 @@
 package com.ssm.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,11 +45,22 @@ public class EmpController {
 //	@RequestMapping(value="/addEmp",method=RequestMethod.POST)
 	@ResponseBody
 	@PostMapping("/addEmp")
-	public Msg addEmp(Employee employee) {
+	public Msg addEmp(@Valid Employee employee,BindingResult result) {
 		System.out.println(" enter controller");
-		empService.addEmp(employee);
-		System.out.println(" add done!");
-		return Msg.success();
+		if(result.hasErrors()) {
+			Map<String,Object> map=new HashMap<String,Object>();
+			List<FieldError> error=result.getFieldErrors();
+			for(FieldError e:error) {
+				map.put(e.getField(), e.getDefaultMessage());
+			}
+//			System.out.println("add fail");
+			return Msg.fail().add("errors", map);
+		}
+		else {
+			empService.addEmp(employee);
+			System.out.println(" add done!");
+			return Msg.success();
+		}
 	}
 
 //	ajax寫法

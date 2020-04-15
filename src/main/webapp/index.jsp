@@ -342,6 +342,7 @@
 // 						去最後一頁  偷懶寫法->goToPage(9999)   , 但頁數大於9999的話會失效 ->所以用 筆數 (永遠大於頁數)
 						goToPage(totalRecord);
 					}else{
+						console.log(result.returnMap.errors);
 						console.log(result.msg);
 					}
 					
