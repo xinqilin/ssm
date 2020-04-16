@@ -146,12 +146,12 @@
 		select
 		<include refid="Base_Column_List" />
 		from employee
-		where emp_id = #{empId,jdbcType=INTEGER}
+		where id = #{empId,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from employee
-		where emp_id =
+		where id =
 		#{empId,jdbcType=INTEGER}
 	</delete>
 	<delete id="deleteByExample"
@@ -163,7 +163,7 @@
 	</delete>
 	<insert id="insert"
 		parameterType="com.ssm.bean.Employee">
-		insert into employee (emp_id, emp_name, gender,
+		insert into employee (id, lastName, gender,
 		email,
 		d_id)
 		values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR},

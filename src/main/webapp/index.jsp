@@ -95,7 +95,7 @@
 		      				 <div class="form-group">
 								<label for="empName_add_input" class="col-sm-2 control-label">ID</label>
 								<div class="col-sm-10">
-									<input type="text" name="empId" class="form-control" id="updateID" readonly="readonly"> 
+									<input type="text" name="empId" class="form-control" id="updateId" readonly="readonly"> 
 								</div>
 							</div>
 		      		 
@@ -111,7 +111,7 @@
 								<label class="col-sm-2 control-label">Gender</label>
 								<div class="col-sm-10">
 									<label class="radio-inline"> 
-										<input type="radio" name="gender" id="updateMale" value="0" checked="checked">男
+										<input type="radio" name="gender" id="updateMale" value="0">男
 									</label> 
 									<label class="radio-inline"> 
 										<input type="radio" name="gender" id="updateFemale" value="1">女
@@ -240,7 +240,7 @@
 				var empGender=$("<td></td>").append(item.gender==0?'male':'female');
 				var empEmail=$("<td></td>").append(item.email);
 				var empDept=$("<td></td>").append(item.dId);
-				var editButton=$("<button></button>").addClass("btn btn-success edit").append("Edit");
+				var editButton=$("<button></button>").addClass("btn btn-success edit").append("Edit").val(item.empId);
 				var deleteButton=$("<button></button>").addClass("btn btn-danger delete").append("Delete");
 				var buttons=$("<td></td>").append(editButton).append(" ").append(deleteButton);
 				$("<tr></tr>").append(empId)
@@ -346,11 +346,30 @@
 			$("#updateModal form span").text("");
 			
 			getDept("#updateDept");
+			getEmp($(this).val());
 			
 			$("#updateModal").modal({
 				backdrop: "static"
 			});
 		});
+		
+		function getEmp(id){
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/getOne/"+id,
+				type:"get",
+				dataType:"json",
+				success:function(result){
+					console.log(result.returnMap.emp.empId);
+					$("#updateId").val(result.returnMap.emp.empId);
+					$("#updateName").val(result.returnMap.emp.empName);
+					$("#updateEmail").val(result.returnMap.emp.email);
+					result.returnMap.emp.gender==0?$("#updateMale").attr("checked","checked"):$("#updateFemale").attr("checked","checked");
+					console.log(result.returnMap.emp.dId);
+					$("#updateDept").val(result.returnMap.emp.dId);
+				}
+			});
+		}
 		
 		function getDept(whichFunction){
 			$(whichFunction).empty();

@@ -63,6 +63,15 @@ public class EmpController {
 		}
 	}
 
+	@ResponseBody
+	@GetMapping("/getOne/{id}")
+	public Msg getOne(@PathVariable("id") Integer id) {
+		
+		Employee emp=empService.getOne(id);
+		return Msg.success().add("emp", emp);
+	}
+	
+	
 //	ajax寫法
 	@ResponseBody
 	@GetMapping("/getAllReturnJson")

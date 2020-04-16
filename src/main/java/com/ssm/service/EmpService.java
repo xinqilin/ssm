@@ -22,6 +22,10 @@ public class EmpService {
 		return empMapper.selectByExample(null);
 	}
 	
+	public Employee getOne(Integer id) {
+		return empMapper.selectByPrimaryKey(id);
+	}
+	
 	
 	public void addEmp(Employee employee) {
 		empMapper.insertSelective(employee);
