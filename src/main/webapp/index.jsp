@@ -144,7 +144,7 @@
 		       
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" id="updateButton">update</button>
+		        <button type="button" class="btn btn-warning" id="updateButton">update</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
@@ -206,7 +206,7 @@
 	<script type="text/javascript">
 	
 // 	設全域變數，給新增玩的function到最後一頁
-	var totalRecord;
+	var totalRecord,currentPage;
 		
 		$(document).ready(function(){
 			goToPage(1);
@@ -263,6 +263,7 @@
 							 .appendTo("#pageInfo");
 			
 			totalRecord=navInfo.pages;
+			currentPage=navInfo.pageNum;
 			
 		}
 		
@@ -365,7 +366,6 @@
 					$("#updateName").val(result.returnMap.emp.empName);
 					$("#updateEmail").val(result.returnMap.emp.email);
 					result.returnMap.emp.gender==0?$("#updateMale").attr("checked","checked"):$("#updateFemale").attr("checked","checked");
-					console.log(result.returnMap.emp.dId);
 					$("#updateDept").val(result.returnMap.emp.dId);
 				}
 			});
@@ -456,6 +456,21 @@
 				}
 				
 			});
+		});
+		
+		$("#updateButton").click(function(){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/update",
+				data:$("#updateModal form").serialize()+"&_method=put",
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					console.log("update success");
+					$("#updateModal").modal('hide');
+					goToPage(currentPage);
+				}
+			});
+			
 		});
 	
 	</script>

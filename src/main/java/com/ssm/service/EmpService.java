@@ -31,6 +31,10 @@ public class EmpService {
 		empMapper.insertSelective(employee);
 	}
 	
+	public void updateEmp(Employee emp) {
+		empMapper.updateByPrimaryKey(emp);
+	}
+	
 	
 	public boolean checkUser(String userName) {
 		EmployeeExample example=new EmployeeExample();

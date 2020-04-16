@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +63,16 @@ public class EmpController {
 			return Msg.success();
 		}
 	}
+	
+	@ResponseBody
+	@PutMapping("/update")
+	public Msg updateEmp(Employee emp) {
+		System.out.println(emp.getEmpId()+" , "+ emp.getEmpName()+" , "+emp.getEmail());
+		empService.updateEmp(emp);
+		return Msg.success();
+	}
+	
+	
 
 	@ResponseBody
 	@GetMapping("/getOne/{id}")
