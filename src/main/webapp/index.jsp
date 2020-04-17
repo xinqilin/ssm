@@ -167,6 +167,7 @@
 			<div class="col-md-9"></div>
 			<div class="col-md-3">
 				<button class="btn btn-primary" id="addButton">新增</button>
+				<button class="btn btn-warning" id="patchDeleteButton">批量刪除</button>
 			</div>
 		</div>
 		<br>
@@ -176,6 +177,9 @@
 				<table class="table table-hover" id="dataInHere">
 				<thead>
 					<tr>
+						<th>
+							<input type="checkbox" id="checkAll"/>
+						</th>
 						<th>ID</th>
 						<th>名字</th>
 						<th>性別</th>
@@ -235,15 +239,17 @@
 			$("#dataInHere tbody").empty();
 			var emps=result.returnMap.pageInfo.list;
 			$.each(emps,function(index,item){
+				var checkItem=$("<td></td>").append("<input type='checkbox' class='checkItem' />");
 				var empId=$("<td></td>").append(item.empId);
 				var empName=$("<td></td>").append(item.empName);
 				var empGender=$("<td></td>").append(item.gender==0?'male':'female');
 				var empEmail=$("<td></td>").append(item.email);
 				var empDept=$("<td></td>").append(item.dId);
 				var editButton=$("<button></button>").addClass("btn btn-success edit").append("Edit").val(item.empId);
-				var deleteButton=$("<button></button>").addClass("btn btn-danger delete").append("Delete");
+				var deleteButton=$("<button></button>").addClass("btn btn-danger delete").append("Delete").val(item.empId);
 				var buttons=$("<td></td>").append(editButton).append(" ").append(deleteButton);
-				$("<tr></tr>").append(empId)
+				$("<tr></tr>").append(checkItem)
+							  .append(empId)
 							  .append(empName)
 							  .append(empGender)
 							  .append(empEmail)
@@ -353,6 +359,7 @@
 				backdrop: "static"
 			});
 		});
+		
 		
 		function getEmp(id){
 			
@@ -471,6 +478,59 @@
 				}
 			});
 			
+		});
+		
+		
+		$(document).on("click",".delete",function(){
+			var deleteId=$(this).val();
+			if(confirm("Are you sure to delete"+deleteId+"?")){
+				$.ajax({
+					url:"${pageContext.request.contextPath}/delete/"+deleteId,
+					data:"_method=delete",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						alert(deleteId+"刪除成功");
+						goToPage(currentPage);
+					}
+				});
+			}
+			
+		});
+		
+		
+		$("#checkAll").change(function(){
+			if(this.checked){
+				$(".checkItem").prop("checked",true);
+			}else{
+				$(".checkItem").prop("checked",false);
+			}
+		});
+		
+		$(document).on("click",".checkItem",function(){
+			
+			var flag=$(".checkItem:checked").length==$(".checkItem").length;
+			$("#checkAll").prop("checked",flag);
+		});
+		
+		
+		$("#patchDeleteButton").click(function(){
+			var wantDeleteEmps="";
+			$.each($(".checkItem:checked"),function(index,item){
+				wantDeleteEmps+=$(item).parents("tr").find("td:eq(1)").text()+"-";
+			});
+			wantDeleteEmps=wantDeleteEmps.substring(0,wantDeleteEmps.length-1);
+			$.ajax({
+				url:"${pageContext.request.contextPath}/delete/"+wantDeleteEmps,
+				data:"_method=delete",
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					goToPage(1);
+					$("#checkAll").prop("checked",false);
+					alert("patch delete success!");
+				}
+			});
 		});
 	
 	</script>

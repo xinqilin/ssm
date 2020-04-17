@@ -35,6 +35,16 @@ public class EmpService {
 		empMapper.updateByPrimaryKey(emp);
 	}
 	
+	public void deleteEmp(Integer id) {
+		empMapper.deleteByPrimaryKey(id);
+	}
+	
+	public void patchDeleteEmp(List<Integer> list) {
+		EmployeeExample example=new EmployeeExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andEmpIdIn(list);
+		empMapper.deleteByExample(example);
+	}
 	
 	public boolean checkUser(String userName) {
 		EmployeeExample example=new EmployeeExample();

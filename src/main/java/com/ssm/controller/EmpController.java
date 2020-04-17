@@ -1,5 +1,7 @@
 package com.ssm.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,24 @@ public class EmpController {
 	public Msg updateEmp(Employee emp) {
 		System.out.println(emp.getEmpId()+" , "+ emp.getEmpName()+" , "+emp.getEmail());
 		empService.updateEmp(emp);
+		return Msg.success();
+	}
+	
+	@ResponseBody
+	@DeleteMapping("/delete/{id}")
+	public Msg deleteEmp(@PathVariable("id") String id) {
+		System.out.println("enter delete controller");
+		List<Integer> list=new ArrayList<Integer>();
+		if(id.contains("-")) {
+			String[] s=id.split("-");
+			for(String ss:s) {
+				list.add(Integer.parseInt(ss));
+			}
+			empService.patchDeleteEmp(list);
+		}else {
+			empService.deleteEmp(Integer.parseInt(id));
+		}
+		
 		return Msg.success();
 	}
 	
