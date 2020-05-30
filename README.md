@@ -1,3 +1,20 @@
+#從intellij 產出的檔案 用 eclipse開  若在pom有錯時
+```
+找
+    <properties>
+    </properties>
+在裡面加上 <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+會變成
+    <properties>
+        <java.version>1.8</java.version>
+	<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+    </properties>
+之類的  
+然後 update maven project
+```
+
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
