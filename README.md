@@ -1,4 +1,4 @@
-#從intellij 產出的檔案 用 eclipse開  若在pom有錯時
+# 從intellij 產出的檔案 用 eclipse開  若在pom有錯時
 ```
 找
     <properties>
@@ -14,6 +14,7 @@
 然後 update maven project
 ```
 
+```java
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -197,10 +198,11 @@ version:
   			<version>4.12</version>
   		</dependency>
 
-
+```
 
 -----------------------------------------------------
-```dispatcherServlet
+### dispatcherServlet
+```java
 
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -232,3 +234,150 @@ version:
 
 
 </beans>
+```
+
+### 超簡略mapper
+
+```java
+	<resultMap class="MenuType" id="resultMenuType">
+	<result property="value" column="value" />
+		<result property="text" column="text" />
+	</resultMap>
+	
+	<select id='getDropdownOptionByMenuType' parameterClass="java.util.HashMap" resultMap="resultMenuType">
+		SELECT id value, option_value text
+		FROM dropdown_option
+		WHERE menu_type = #menuType#
+		AND enable = '1'
+	</select>
+
+```
+
+
+
+### mapper 基本設定
+```java
+<typeAlias type="Class的model位置" alias="別名">
+
+<typeAlias type="Model.User" alias="User" />
+
+<resultMap class="User" id="resultUser">
+		<result property="id" column="id" />
+		<result property="empId" column="emp_id" />
+		<result property="name" column="emp_name" />
+		<result property="passwd" column="emp_passwd" />
+		<result property="group" column="power_user_group" />
+		<result property="power_1" column="power_1" />
+		<result property="power_2" column="power_2" />
+		<result property="power_3" column="power_3" />
+		<result property="power_4" column="power_4" />
+		<result property="power_5" column="power_5" />
+	</resultMap>
+
+```
+
+
+### mapper 查詢
+
+```java
+<select id="SearchUser" parameterClass="java.util.HashMap"
+		resultMap="resultUser">
+		select * from emp_admin, power_user_admin where emp_admin.power_user_group = power_user_admin.power_user_group
+		<dynamic>
+			<isNotEmpty prepend="AND" property="id">
+				emp_admin.emp_id=#id#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blurid">
+				emp_admin.emp_id like '%$blurid$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				emp_admin.emp_name like '%$name$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="group">
+				emp_admin.power_user_group like '%$group$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="passwd">
+				emp_admin.emp_passwd=#passwd#
+			</isNotEmpty>
+		</dynamic>
+		order by emp_admin.$sort$ $type$, emp_admin.emp_name		
+	</select>
+
+```
+
+### mapper insert
+
+```java
+
+	<insert id="AddUser" parameterClass="User">
+		insert into emp_admin (emp_id, emp_name, emp_passwd,
+		power_user_group) values (#id#, #name#, #passwd#, #group#)
+	</insert>
+
+```
+
+### mapper update
+
+```java
+
+    <update id="UpdateDeclaration" parameterClass="Declaration">
+		update fixip_declaration set content = #content#, avaliable=#avaliable#, emp_id=#emp_id#, date=#date# where type=#type#
+	</update>
+
+    <update id="EditUser" parameterClass="User">
+		update emp_admin 
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="name">
+				emp_name=#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="passwd">
+				emp_passwd=#passwd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="group">
+				power_user_group=#group#
+			</isNotEmpty>
+		</dynamic>
+		where emp_id=#id#
+	</update>	
+
+
+    <update id="EditCM" parameterClass="CM">
+		update docsis_modem
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="status">
+				status=#status#
+			</isNotEmpty>
+			<isEqual prepend="," property="status" compareValue="clean">
+				status=NULL
+			</isEqual>
+			<isNotEqual prepend="," property="cmts_vlan" compareValue="-1">
+				cmts_vlan=#cmts_vlan#
+			</isNotEqual>
+			<isNotEmpty prepend="," property="model">
+				model=#model#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="emp_id">
+				emp_id=#emp_id#
+			</isNotEmpty>
+			<isEmpty prepend="," property="cm_group_name" >
+				config_file=#config_file#
+			</isEmpty>	
+			<isNotEmpty prepend="," property="cm_group_name" >
+				config_file=CONCAT(model,'-',#cm_group_name#,'.bin')
+			</isNotEmpty>		
+		</dynamic>
+		where modem_macaddr=#modem_macaddr#
+	</update>
+
+```
+
+
+### mapper delete
+
+```java
+
+	<delete id="DelUser" parameterClass="java.lang.String">
+		delete from emp_admin where emp_id=#id#
+	</delete>
+
+```
